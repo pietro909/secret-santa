@@ -11,7 +11,7 @@ exports.handler = async function(event, context) {
     const url = `https://http-api.d7networks.com/send?username=${USN}&password=${PWD}`
     const config = `&dlr-method=POST&dlr-url=https://4ba60af1.ngrok.io/receive&dlr=yes&dlr-level=3`
 
-    const promises = recipients.array.forEach(element => {
+    const promises = recipients.forEach(element => {
         const content = escape(`
             Ciao ${element.name}! Il budget e' ${budget}.
         `);
