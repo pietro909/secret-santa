@@ -1,5 +1,5 @@
 function run() {
-    const recipients = [ { name: "Pietro", number: "0035677160883"}]
+    const recipients = [ { name: "Pietro", number: "+35677160883"}]
     const budget = "20euro"
 
     fetch(".netlify/functions/drawNames",{
