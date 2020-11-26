@@ -19,13 +19,17 @@ exports.handler = async function(event, context) {
         formData: {}
       };
 
-    const promises = recipients.forEach(element => {
+      console.log(recipients);
+
+    recipients.forEach(element => {
         const content = escape(`
             Ciao ${element.name}! Il budget e' ${budget}.
         `);
         const number = escape(element.number);
         const meta = `&from=${from}&content=${content}&to=${number}`
         options.url = `${url}${config}${meta}`
+
+        console.log(options);
 
         request(options, function (error, response) {
             if (error) {
