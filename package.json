@@ -1,0 +1,19 @@
+{
+  "name": "secret-santa",
+  "version": "1.0.0",
+  "description": "ehehehehe",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pietro909/secret-santa.git"
+  },
+  "author": "pietro909",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pietro909/secret-santa/issues"
+  },
+  "homepage": "https://github.com/pietro909/secret-santa#readme"
+}
