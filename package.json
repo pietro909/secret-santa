@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/pietro909/secret-santa/issues"
   },
-  "homepage": "https://github.com/pietro909/secret-santa#readme"
+  "homepage": "https://github.com/pietro909/secret-santa#readme",
+  "dependencies": {
+    "request": "^2.88.2"
+  }
 }
