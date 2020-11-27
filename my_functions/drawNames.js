@@ -27,14 +27,17 @@ exports.handler = async function(event, context) {
         const meta = `&from=${from}&content=${content}&to=${number}`
         options.url = `${url}${config}${meta}`
 
+        console.log(`sending to ${element.number} for ${element.name}`);
         console.log(options);
 
-        request(options, function (error, response) {
-            if (error) {
-                return { statusCode: 500, body: e.message }
-            }
-            console.log(response.body);
-          });
+        setTimeout(() => 
+            request(options, function (error, response) {
+                if (error) {
+                    return { statusCode: 500, body: e.message }
+                }
+                console.log(response.body);
+            })
+        , 1000);
     });
 
     return { statusCode: 200, body: "OK" };

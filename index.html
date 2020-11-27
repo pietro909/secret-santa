@@ -12,9 +12,16 @@
 
 </head>
 
-<body>
+<body onload="init()">
   <script src="script.js"></script>
   <h1>Oh oh oh!</h1>
-  <button onclick="run()">Estrai nomi!</button>
+  <form onsubmit="run(event)">
+    <div id="names">
+        <input type="text" />
+        <input type="tel" />
+    </div>
+
+    <button type="submit">Estrai nomi!</button>
+  </form>
 </body>
 </html>
