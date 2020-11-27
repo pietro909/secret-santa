@@ -22,7 +22,7 @@ exports.handler = async function(event, context) {
       console.log(recipients);
 
     recipients.forEach(element => {
-        const content = escape(`Ciao ${element.name}! Il budget e' ${budget}.`);
+        const content = escape(`Ciao ${element.name}! Il budget e' ${budget}.`.replace("&", ""));
         const number = escape(element.number);
         const meta = `&from=${from}&content=${content}&to=${number}`
         options.url = `${url}${config}${meta}`

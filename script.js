@@ -28,7 +28,7 @@ function run(event) {
 }
 
 function init() {
-    const names = ["Alberto", "Liliana", "Pietro", "Andrea", "Ettore", "Lisa"]
+    const names = ["Alberto"] //, "Liliana", "Pietro", "Andrea", "Ettore", "Lisa"]
     const namesContainer = document.getElementById("names")
     const nodes = names.reduce((acc, name) => {
         const node = `
