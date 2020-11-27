@@ -9,7 +9,7 @@ exports.handler = async function(event, context) {
     const from = escape("Secret Santa")
 
     const USN = process.env.SMS_NAME
-    const PWD = process.env.SMS_PWD
+    const PWD = process.env.SMS_PASSWORD
     const url = `https://http-api.d7networks.com/send?username=${USN}&password=${PWD}`
     const config = `&dlr-method=POST&dlr-url=https://4ba60af1.ngrok.io/receive&dlr=yes&dlr-level=3`
 
