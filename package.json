@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/pietro909/secret-santa#readme",
   "dependencies": {
+    "axios": "^0.21.0",
     "request": "^2.88.2"
   }
 }
