@@ -12,7 +12,7 @@ exports.handler = async function(event, context) {
     const PWD = process.env.SMS_PASSWORD;
     const url = `https://http-api.d7networks.com/send?username=${USN}&password=${PWD}`;
     const config = `&dlr-method=POST&dlr-url=https://4ba60af1.ngrok.io/receive&dlr=yes&dlr-level=3`;
-    
+
     console.log(recipients);
 
     const promises = recipients.map(element => {
@@ -21,7 +21,6 @@ exports.handler = async function(event, context) {
         const meta = `&from=${from}&content=${content}&to=${number}`;
 
         console.log(`sending to ${element.number} for ${element.name}`);
-        console.log(options);
 
         return axios.post(`${url}${config}${meta}`);
     });
