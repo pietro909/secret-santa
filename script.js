@@ -2,16 +2,16 @@ function run(event) {
     event.preventDefault()
 
     const namesContainer = document.getElementById("names")
-    const recipients = Object.values(namesContainer.children).map(child => 
-        ({
-            name: child.children[0].value,
-            number: child.children[1].value
-        })
-    )
+    const recipients = Object.values(namesContainer.children).map(child => {
+        const name = document.querySelector(`#${child.id} [type="text"]`).value 
+        const number = document.querySelector(`#${child.id} [type="tel"]`).value
+        return { name, number }
+    })
 
-    const budget = "20euro"
+    const budget = document.getElementById(`budget`).value;
 
-    console.log(recipients)
+    console.log(budget);
+    console.log(recipients);
 
     fetch(".netlify/functions/drawNames",{
         method: "POST",
@@ -28,17 +28,29 @@ function run(event) {
 }
 
 function init() {
-    const names = ["Alberto"] //, "Liliana", "Pietro", "Andrea", "Ettore", "Lisa"]
+    const names = ["Alberto", "Liliana", "Pietro", "Andrea", "Ettore", "Lisa"]
     const namesContainer = document.getElementById("names")
     const nodes = names.reduce((acc, name) => {
         const node = `
             <div id="${name}">
-                <input type="text" value="${name}"/>
-                <input type="tel" value="+39"/>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">📞</span>
+                    </div>
+                    <input type="tel" class="form-control" placeholder="+39"/>
+                    <input type="text" class="form-control" placeholder="nome" value="${name}"/>
+                    <button type="button" class="close" onclick="remove('${name}')">
+                        <span>&times;</span>
+                    </button>
+                </div>
             </div>`
         acc += node
         return acc
     }, "");
 
     namesContainer.innerHTML = nodes;
+}
+
+function remove(id) {
+    document.getElementById(id).remove()
 }

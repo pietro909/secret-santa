@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint *.js --fix"
+    "lint": "eslint ./*.js ./my_functions/*.js --fix"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,8 @@
   "homepage": "https://github.com/pietro909/secret-santa#readme",
   "dependencies": {
     "axios": "^0.21.0",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "shufflr": "^2.0.10"
   },
   "devDependencies": {
     "eslint": "^7.14.0"
