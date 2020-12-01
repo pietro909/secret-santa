@@ -1,6 +1,6 @@
 const axios = require('axios').default;
 
-const from = escape("🎄🎁 2020")
+const from = escape("BabboNatale");
 const USN = process.env.SMS_NAME;
 const PWD = process.env.SMS_PASSWORD;
 const url = `https://http-api.d7networks.com/send?username=${USN}&password=${PWD}`;
@@ -50,7 +50,7 @@ function match(recipients, budget) {
         const current = shuffledArray[i];
         const next = shuffledArray[i+1] || shuffledArray[0];
 
-        const message = `Ciao ${current.name}, devi fare il regalo a ${next.name}. Il budget e' ${budget}€, buon Natale!`
+        const message = `Ciao ${current.name}, devi fare il regalo a ${next.name}. Il budget e' ${budget} euro, buon Natale!`
         result.push({ message, number: current.number });
     }
     return result;
