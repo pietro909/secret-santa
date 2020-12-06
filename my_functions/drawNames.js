@@ -1,4 +1,4 @@
-const axios = require('axios').default;
+const axios = require("axios").default;
 
 const from = escape("BabboNatale");
 const USN = process.env.SMS_NAME;
@@ -9,61 +9,61 @@ const config = `&dlr-method=POST&dlr-url=https://4ba60af1.ngrok.io/receive&dlr=y
 // a shameless copy/paste from https://www.npmjs.com/package/shufflr
 function shuffle(list, seed) {
     var shuffleItem,
-      i = 0,
-      j = 0,
-      shuffledList;
-  
+        i = 0,
+        j = 0,
+        shuffledList;
+
     if (!Array.isArray(list)) {
-      return [];
+        return [];
     }
-  
+
     shuffledList = Array.from(list);
-  
+
     if (shuffledList.length <= 2) {
-      return shuffledList;
+        return shuffledList;
     }
-  
+
     seed = seed || 10000;
-  
+
     for (i = 0; i < shuffledList.length - 2; i++) {
-      j = (Math.round(Math.random() * seed) + i) % shuffledList.length;
-  
-      shuffleItem = shuffledList[i];
-      shuffledList[i] = shuffledList[j];
-      shuffledList[j] = shuffleItem;
+        j = (Math.round(Math.random() * seed) + i) % shuffledList.length;
+
+        shuffleItem = shuffledList[i];
+        shuffledList[i] = shuffledList[j];
+        shuffledList[j] = shuffleItem;
     }
-  
+
     return shuffledList;
-  }
+}
 
 /**
  * Create random matches between recipients, generating the message for the number.
- * 
- * @param {Array<{name: string, number: string}>} recipients 
- * @param {number} budget 
+ *
+ * @param {Array<{name: string, number: string}>} recipients
+ * @param {number} budget
  * @returns {Array<{message: string, number: string}>}
  */
 function match(recipients, budget) {
     const result = [];
-    const shuffledArray = shuffle(recipients)
-    for (let i = 0; i < shuffledArray.length; i+=1) {
+    const shuffledArray = shuffle(recipients, Date.now());
+    for (let i = 0; i < shuffledArray.length; i += 1) {
         const current = shuffledArray[i];
-        const next = shuffledArray[i+1] || shuffledArray[0];
+        const next = shuffledArray[i + 1] || shuffledArray[0];
 
-        const message = `Ciao ${current.name}, devi fare il regalo a ${next.name}. Il budget e' ${budget} euro, buon Natale!`
+        const message = `Ciao ${current.name}, devi fare il regalo a ${next.name}. Il budget e' ${budget} euro, buon Natale!`;
         result.push({ message, number: current.number });
     }
     return result;
 }
 
-exports.handler = async function(event, _) {
+exports.handler = async function (event, _) {
     // your server-side functionality
-    const payload = JSON.parse(event.body)
-    const recipients = match(payload.recipients, payload.budget)
+    const payload = JSON.parse(event.body);
+    const recipients = match(payload.recipients, payload.budget);
 
     console.log(recipients);
 
-    const promises = recipients.map(element => {
+    const promises = recipients.map((element) => {
         const content = escape(element.message);
         const number = escape(element.number);
         const meta = `&from=${from}&content=${content}&to=${number}`;
@@ -75,11 +75,10 @@ exports.handler = async function(event, _) {
 
     try {
         const results = await Promise.all(promises);
-        console.log(results.map(r => r.data));
-    } catch(e) {
+        console.log(results.map((r) => r.data));
+    } catch (e) {
         console.error(e);
         return { statusCode: 200, body: e.message };
     }
     return { statusCode: 200, body: "OK" };
 };
-

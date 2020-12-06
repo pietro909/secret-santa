@@ -1,21 +1,27 @@
 html {
-  font-size: 40px;
-  height: 100%;
+    font-size: 20px;
+    height: 100%;
 }
 
 h1 {
-  font-family: 'Mountains of Christmas', cursive;
+    font-family: "Mountains of Christmas", cursive;
 }
 
 input,
 button {
-  font-family: 'Lato', sans-serif;
+    font-family: "Lato", sans-serif;
 }
 
 .background {
-  background-image: url(background.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100%;
+    background-image: url(background.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+@media only screen and (max-width: 1024px) {
+    html {
+        font-size: 40px;
+    }
 }

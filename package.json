@@ -1,27 +1,32 @@
 {
-  "name": "secret-santa",
-  "version": "1.0.0",
-  "description": "ehehehehe",
-  "main": "index.html",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ./*.js ./my_functions/*.js --fix"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pietro909/secret-santa.git"
-  },
-  "author": "pietro909",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/pietro909/secret-santa/issues"
-  },
-  "homepage": "https://github.com/pietro909/secret-santa#readme",
-  "dependencies": {
-    "axios": "^0.21.0",
-    "request": "^2.88.2"
-  },
-  "devDependencies": {
-    "eslint": "^7.14.0"
-  }
+    "name": "secret-santa",
+    "version": "1.0.0",
+    "description": "ehehehehe",
+    "main": "index.html",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "eslint ./*.js ./my_functions/*.js --fix"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pietro909/secret-santa.git"
+    },
+    "author": "pietro909",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/pietro909/secret-santa/issues"
+    },
+    "homepage": "https://github.com/pietro909/secret-santa#readme",
+    "dependencies": {
+        "axios": "^0.21.0",
+        "request": "^2.88.2"
+    },
+    "devDependencies": {
+        "eslint": "^7.14.0",
+        "prettier": "2.2.1"
+    },
+    "prettier": {
+        "trailingComma": "es5",
+        "tabWidth": 4
+    }
 }
