@@ -1,14 +1,19 @@
-function run(event) {
+function run(event, TEST) {
     event.preventDefault();
 
     const namesContainer = document.getElementById("names");
     const recipients = Object.values(namesContainer.children).flatMap(
         (child) => {
-            const name = document.querySelector(`#${child.id} [type="text"]`)
-                .value;
-            const number = document.querySelector(`#${child.id} [type="tel"]`)
-                .value;
-            if (name && number) return [{ name, number }];
+            const name = document
+                .querySelector(`#${child.id} [name="name"]`)
+                .value?.toLowerCase();
+            const partner = document
+                .querySelector(`#${child.id} [name="partner"]`)
+                .value?.toLowerCase();
+            const number = document.querySelector(
+                `#${child.id} [type="tel"]`
+            ).value;
+            if (name && number) return [{ name, number, partner }];
             return [];
         }
     );
@@ -17,6 +22,10 @@ function run(event) {
 
     console.log(budget);
     console.log(recipients);
+
+    if (TEST) {
+        return;
+    }
 
     fetch(".netlify/functions/drawNames", {
         method: "POST",
@@ -34,10 +43,14 @@ function run(event) {
     return false;
 }
 
+function runTest(event) {
+    run(event, true);
+}
+
 let nextId = "recipient_0";
 
 function addParticipant(event) {
-    event.preventDefault();
+    event?.preventDefault();
     const id = parseInt(nextId.match(/\d+$/)[0], 10) + 1;
 
     nextId = `recipient_${id}`;
@@ -50,7 +63,8 @@ function addParticipant(event) {
                     <span class="input-group-text">📞</span>
                 </div>
                 <input required type="tel" class="form-control" placeholder="+39" pattern="^\\+[0-9]{6,24}" title="Numero di telefono con prefisso internazionale"/>
-                <input required type="text" class="form-control" placeholder="Nome" title="Nome della persona"/>
+                <input required type="text" name="name" class="form-control" placeholder="Nome" title="Nome della persona"/>
+                <input type="text" name="partner" class="form-control" placeholder="Partner" title="Nome del partner"/>
                 <button type="button" class="close" onclick="remove('${nextId}')">
                     <span>&times;</span>
                 </button>

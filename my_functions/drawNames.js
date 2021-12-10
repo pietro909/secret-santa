@@ -36,6 +36,39 @@ function shuffle(list, seed) {
     return shuffledList;
 }
 
+function findCouples(recipients) {
+    const { couples, singles } = recipients.reduce(
+        (acc, curr) => {
+            if (curr.partner) {
+                const couple = [curr.name, curr.partner].sort().join("_");
+                let existing = acc.couples[couple];
+                if (existing) {
+                    existing.push(curr);
+                } else {
+                    acc.couples[couple] = [curr];
+                }
+            } else {
+                acc.singles.push(curr);
+            }
+            return acc;
+        },
+        { couples: {}, singles: [] }
+    );
+    const split = Object.values(couples).reduce(
+        ([p1, p2], curr) => {
+            const single = singles.pop();
+            if (single) {
+                p1.push(single);
+            }
+            p1.push(curr[0]);
+            p2.push(curr[1]);
+            return [p2, p1];
+        },
+        [[], []]
+    );
+    return split;
+}
+
 /**
  * Create random matches between recipients, generating the message for the number.
  *
@@ -46,9 +79,11 @@ function shuffle(list, seed) {
 function match(recipients, budget) {
     const result = [];
     const shuffledArray = shuffle(recipients, Date.now());
-    for (let i = 0; i < shuffledArray.length; i += 1) {
-        const current = shuffledArray[i];
-        const next = shuffledArray[i + 1] || shuffledArray[0];
+    const [group_1, group_2] = findCouples(shuffledArray);
+    const list = group_1.concat(group_2);
+    for (let i = 0; i < list.length; i += 1) {
+        const current = list[i];
+        const next = list[i + 1] || list[0];
 
         const message = `Ciao ${current.name}, devi fare il regalo a ${next.name}. Il budget e' ${budget} euro, buon Natale!`;
         result.push({ message, number: current.number });
