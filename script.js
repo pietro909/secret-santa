@@ -23,15 +23,12 @@ function run(event, TEST) {
     console.log(budget);
     console.log(recipients);
 
-    if (TEST) {
-        return;
-    }
-
     fetch(".netlify/functions/drawNames", {
         method: "POST",
         body: JSON.stringify({
             recipients,
             budget,
+            isTest: TEST,
         }),
     })
         .then((_) => {

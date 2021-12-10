@@ -76,7 +76,7 @@ function findCouples(recipients) {
  * @param {number} budget
  * @returns {Array<{message: string, number: string}>}
  */
-function match(recipients, budget) {
+function match(recipients, budget, isTest) {
     const result = [];
     const shuffledArray = shuffle(recipients, Date.now());
     const [group_1, group_2] = findCouples(shuffledArray);
@@ -85,7 +85,8 @@ function match(recipients, budget) {
         const current = list[i];
         const next = list[i + 1] || list[0];
 
-        const message = `Ciao ${current.name}, devi fare il regalo a ${next.name}. Il budget e' ${budget} euro, buon Natale!`;
+        const test = isTest ? "[TEST] --- " : "";
+        const message = `${test}Ciao ${current.name}, devi fare il regalo a ${next.name}. Il budget e' ${budget} euro, buon Natale!`;
         result.push({ message, number: current.number });
     }
     return result;
@@ -94,7 +95,11 @@ function match(recipients, budget) {
 exports.handler = async function (event, _) {
     // your server-side functionality
     const payload = JSON.parse(event.body);
-    const recipients = match(payload.recipients, payload.budget);
+    const recipients = match(
+        payload.recipients,
+        payload.budget,
+        payload.isTest
+    );
 
     console.log(recipients);
 
